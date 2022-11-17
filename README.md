@@ -41,6 +41,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 %matplotlib inline
+from sklearn.metrics import classification_report,confusion_matrix
 ```
 
 ## Import and explore the data 
@@ -48,4 +49,97 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 data = pd.read_csv("heart_attack.csv")
 data.info()
 data.head()
+```
+
+### cp and rest ecg need to be one-hot encoded into binary form 
+```
+data_new = pd.get_dummies(data, columns =['restecg'], drop_first = True)
+data = pd.get_dummies(data_new, columns=['cp'], drop_first = True)
+data
+```
+
+## spliting the data into test and train dataset 
+```
+target = data['output']
+inputs = data.drop(['output'], axis =1)
+inputs
+```
+###### since the variables of the data are on different scales, we will normalize the data 
+```
+# normalising the data 
+inputs = (inputs - np.min(inputs))/ (np.max(inputs) - np.min(inputs)).values
+```
+
+#### Train test split 
+```
+X_train, X_test, y_train, y_test = train_test_split(
+             inputs, data['output'], test_size = 0.2, random_state=50)
+             
+```
+
+#### Looking at the accuracy of the model 
+```
+accuracy = {}
+scoreList = []
+for i in range(1,20):
+    knn2 = KNeighborsClassifier(n_neighbors = i)  # n_neighbors means k
+    knn2.fit(X_train, y_train)
+    scoreList.append(knn2.score(X_test, y_test))
+    
+plt.figure(figsize=(10,6))
+plt.plot(range(1,20), scoreList)
+plt.xticks(np.arange(1,20,1))
+plt.xlabel("K value")
+plt.ylabel("Score")
+plt.show()
+
+acc = max(scoreList)*100
+accuracy['KNN'] = acc
+print("Maximum KNN Score is {:.2f}%".format(acc))
+```
+
+Here the max accuracy acheved by the model was 83.64%. One can use robust scaling or standard scaling to see how the accuracy differes for different scaling methods
+
+#### using the elbow method and printing confusion matrix 
+
+```
+error_rate = []
+
+for i in range(1,20):
+    
+    knn = KNeighborsClassifier(n_neighbors=i)
+    knn.fit(X_train,y_train)
+    pred_i = knn.predict(X_test)
+    error_rate.append(np.mean(pred_i != y_test))
+plt.figure(figsize=(10,6))
+plt.plot(range(1,20),error_rate,color='blue', linestyle='dashed', marker='o',
+         markerfacecolor='green', markersize=10)
+plt.title('Error Rate vs. K Value')
+plt.xlabel('K')
+plt.ylabel('Error Rate')
+```
+```
+knn = KNeighborsClassifier(n_neighbors=11)
+
+knn.fit(X_train,y_train)
+pred = knn.predict(X_test)
+
+print('WITH K=11')
+print('\n')
+print(confusion_matrix(y_test,pred))
+print('\n')
+print(classification_report(y_test,pred))
+```
+
+```
+clf=KNeighborsClassifier(n_neighbors=11)
+clf.fit(x_train,y_train)
+predicted_value=clf.predict(x_test)
+con_mat=confusion_matrix(y_test,predicted_value)
+sns.heatmap(con_mat,annot=True,annot_kws= 
+                           {"size":20},cmap="viridis")
+plt.show()
+```
+
+
 ```
