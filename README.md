@@ -9,7 +9,6 @@ Value 3: non-anginal pain
 Value 4: asymptomatic
 
 2. 'restecg' : resting electrocardiographic results
-
 Value 0: normal
 Value 1: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV)
 Value 2: showing probable or definite left ventricular hypertrophy by Estes’ criteria
@@ -28,3 +27,25 @@ Value 2: showing probable or definite left ventricular hypertrophy by Estes’ c
 7. 'trtbps' : resting blood pressure (in mm Hg)
 
 8. 'chol' : cholesterol in mg/dl fetched via BMI sensor
+
+The data itself was not preprocessed. Variables 'cp' and 'restecg' were catagorical variables with multiple levels. In order to make a robust model, we need to essentially pivot these level to binary forms, or also called 'one-hot encoding' this will allow the model to classify and predict better on the basis of their neighbour. We will use the get_dummies function in pandas library for that. 
+
+## First, Import relevent libraries 
+```
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+import seaborn as sns
+from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.pyplot as plt 
+from sklearn.preprocessing import StandardScaler
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+%matplotlib inline
+```
+
+## Import and explore the data 
+```
+data = pd.read_csv("heart_attack.csv")
+data.info()
+data.head()
+```
