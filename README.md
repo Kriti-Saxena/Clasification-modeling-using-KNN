@@ -1,13 +1,17 @@
-# Classification-model-using-K-Nearest-Neighbor-
+# *Classification-model-using-K-Nearest-Neighbor-*
+
 This notebook builds a classification model using supervised machine learning algorithm
-We will be working on a dataset from [dropbox]("https://www.dropbox.com/s/aohbr6yb9ifmc8w/heart_attack.csv?dl=1") with a combination of categorical and numerical variables. The dataset looks at population of different ages and classifies them ob the basis of their liklihood of experiencing heart attack. This dataset has 8 variables including 
+We will be working on a dataset from [dropbox](https://www.dropbox.com/s/aohbr6yb9ifmc8w/heart_attack.csv?dl=1) with a combination of categorical and numerical variables. The dataset looks at population of different ages and classifies them ob the basis of their liklihood of experiencing heart attack. This dataset has 8 variables including 
+
 1. 'cp' : The type of chest pain they experience 
+
 Value 1: typical angina
 Value 2: atypical angina
 Value 3: non-anginal pain
 Value 4: asymptomatic
 
 2. 'restecg' : resting electrocardiographic results
+
 Value 0: normal
 Value 1: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV)
 Value 2: showing probable or definite left ventricular hypertrophy by Estes’ criteria
@@ -103,37 +107,39 @@ Here the max accuracy acheved by the model was 83.64%. One can use robust scalin
 
 #### using the elbow method and printing confusion matrix 
 
-```
-error_rate = []
+It is not always easy to figure out the optimal k value, we will use the elbow vizualiser to get the optimal value 
 
-for i in range(1,20):
-    
-    knn = KNeighborsClassifier(n_neighbors=i)
-    knn.fit(X_train,y_train)
-    pred_i = knn.predict(X_test)
-    error_rate.append(np.mean(pred_i != y_test))
-plt.figure(figsize=(10,6))
-plt.plot(range(1,20),error_rate,color='blue', linestyle='dashed', marker='o',
-         markerfacecolor='green', markersize=10)
-plt.title('Error Rate vs. K Value')
-plt.xlabel('K')
-plt.ylabel('Error Rate')
 ```
+km = KMeans(random_state=42)
+visualizer = KElbowVisualizer(km, k=(2,10))
+ 
+visualizer.fit(X)        # Fit the data to the visualizer
+visualizer.show()        # Finalize and render the figure
 ```
-knn = KNeighborsClassifier(n_neighbors=11)
+[citation](https://towardsdatascience.com/elbow-method-is-not-sufficient-to-find-best-k-in-k-means-clustering-fc820da0631d)
+
+```
+knn = KNeighborsClassifier(n_neighbors=5)
 
 knn.fit(X_train,y_train)
 pred = knn.predict(X_test)
 
-print('WITH K=11')
+print('WITH K=5')
 print('\n')
 print(confusion_matrix(y_test,pred))
 print('\n')
 print(classification_report(y_test,pred))
+print('\n')
+print("roc auc score: ")
+print(roc_auc_score(y_test, pred))
+print('\n')
+print('accuracy score:')
+print(accuracy_score(y_test, pred))
+
 ```
 
 ```
-clf=KNeighborsClassifier(n_neighbors=11)
+clf=KNeighborsClassifier(n_neighbors=5)
 clf.fit(x_train,y_train)
 predicted_value=clf.predict(x_test)
 con_mat=confusion_matrix(y_test,predicted_value)
