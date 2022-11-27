@@ -147,5 +147,4 @@ sns.heatmap(con_mat,annot=True,annot_kws=
                            {"size":20},cmap="viridis")
 plt.show()
 ```
-
-![Image](Isolated.png "confusion matrix")
+![Image](./Desktop/confusion matrix.png)
