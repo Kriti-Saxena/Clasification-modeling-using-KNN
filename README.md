@@ -148,3 +148,4 @@ sns.heatmap(con_mat,annot=True,annot_kws=
 plt.show()
 ```
 
+![Image](Isolated.png "confusion matrix")
