@@ -148,4 +148,4 @@ sns.heatmap(con_mat,annot=True,annot_kws=
 plt.show()
 ```
 
-![Image](./Desktop/confusion matrix.png)
+![Image](./Desktop/images/confusion matrix.png)
