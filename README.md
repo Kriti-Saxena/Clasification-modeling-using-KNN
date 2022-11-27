@@ -50,6 +50,8 @@ data.info()
 data.head()
 ```
 
+Since the 'restecg' and 'cp' is a multiple level categorical variable, we need to pivot them into binary forms also called 'one-hot encoding' using the pandas library 
+
 ### cp and rest ecg need to be one-hot encoded into binary form 
 ```
 data_new = pd.get_dummies(data, columns =['restecg'], drop_first = True)
@@ -140,5 +142,3 @@ sns.heatmap(con_mat,annot=True,annot_kws=
 plt.show()
 ```
 
-
-```
