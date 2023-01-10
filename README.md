@@ -1,7 +1,7 @@
 # *Classification-model-using-K-Nearest-Neighbor-*
 
 This notebook builds a classification model using supervised machine learning algorithm
-We will be working on a dataset from [dropbox](https://www.dropbox.com/s/aohbr6yb9ifmc8w/heart_attack.csv?dl=1) with a combination of categorical and numerical variables. The dataset looks at population of different ages and classifies them ob the basis of their liklihood of experiencing heart attack. This dataset has 8 variables including 
+We will be working on a dataset from [dropbox](https://www.dropbox.com/s/aohbr6yb9ifmc8w/heart_attack.csv?dl=1) with a combination of categorical and numerical variables. The dataset looks at population of different ages and classifies them on the basis of their liklihood of experiencing heart attack. This dataset has 8 variables including 
 
 1. 'cp' : The type of chest pain they experience 
 
