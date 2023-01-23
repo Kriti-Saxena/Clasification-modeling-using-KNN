@@ -1,6 +1,15 @@
-# *Classification-model-using-K-Nearest-Neighbor-*
+# *Classification model using K-Nearest Neighbor*
 
 This notebook builds a classification model using supervised machine learning algorithm
+
+### What I learned 
+1. The importance of hyperparameter tuning 
+2. Use of one-hot encoding for categorical variables
+3. Python libraries: Sckit-learn, Pandas, Numpy
+
+### Next Steps
+
+Though the model is performing fairly well, in the next version of this project I would want to perform Principal Component Analysis (PCA) to extract essential variables and for feature reduction 
 
 We will be working on a dataset from [dropbox](https://www.dropbox.com/s/aohbr6yb9ifmc8w/heart_attack.csv?dl=1) with a combination of categorical and numerical variables. The dataset looks at population of different ages and classifies them on the basis of their liklihood of experiencing heart attack. This dataset has 8 variables including 
 
